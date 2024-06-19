@@ -3,28 +3,35 @@ import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import { db, Code } from 'astro:db';
 
-// if (Astro.request.method === 'POST') {
-//   // parse form data
-//   const formData = await Astro.request.formData();
-//   const author = formData.get('author');
-//   const body = formData.get('body');
-//   const rareza = formData.get('body');
-//   if (typeof author === 'string' && typeof body === 'string') {
-//     // insert form data into the Comment table
-//     await db.insert(Comment).values({ author, body });
-//   }
-// }
+if (Astro.request.method === 'POST') {
+  // parse form data
+  const formData = await Astro.request.formData();
+  const code = formData.get('inpt');
+  if (typeof code === 'string') {
+    // insert form data into the Comment table
+    await db.insert(Code).values({ code });
+  }
+}
 
 // // render the new list of comments on each request
-// const comments = await db.select().from(Comment);
+const code = await db.select().from(Code);
 ---
 
 <Layout title="Monopoly App">
 	<button type="button" class="btn-1">Crear Sala</button>
-	<button type="button" class="btn-2">Unirse a Sala</button>
 
 	<p class="code"></p>
-	<input type="text" placeholder="Insertar Codigo" class="inpt">
+	<form method="POST">
+			<button type="button" class="btn-2">Unirse a Sala</button>
+		<input type="text" placeholder="Insertar Codigo" class="inpt" id="inpt">
+	</form>
+	{
+		code.map(({ code }) => (
+		  <article>
+			<p>Join Code: {code}</p>>
+		  </article>
+		))
+	  }
 </Layout>
 
 <script is:inline>
