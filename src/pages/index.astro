@@ -1,0 +1,76 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import { db, Code } from 'astro:db';
+
+// if (Astro.request.method === 'POST') {
+//   // parse form data
+//   const formData = await Astro.request.formData();
+//   const author = formData.get('author');
+//   const body = formData.get('body');
+//   const rareza = formData.get('body');
+//   if (typeof author === 'string' && typeof body === 'string') {
+//     // insert form data into the Comment table
+//     await db.insert(Comment).values({ author, body });
+//   }
+// }
+
+// // render the new list of comments on each request
+// const comments = await db.select().from(Comment);
+---
+
+<Layout title="Monopoly App">
+	<button type="button" class="btn-1">Crear Sala</button>
+	<button type="button" class="btn-2">Unirse a Sala</button>
+
+	<p class="code"></p>
+	<input type="text" placeholder="Insertar Codigo" class="inpt">
+</Layout>
+
+<script is:inline>
+	const $btn1 = document.querySelector(".btn-1");
+	const $btn2 = document.querySelector('.btn-2');
+	const inpt = document.querySelector('.inpt');
+	const $code = document.querySelector(".code");
+	const randomLetters = [
+		"A",
+		"B",
+		"C",
+		"D",
+		"E",
+		"F",
+		"G",
+		"H",
+		"I",
+		"J",
+		"K",
+		"L",
+		"M",
+		"N",
+		"Ñ",
+		"O",
+		"P",
+		"Q",
+		"R",
+		"S",
+		"T",
+		"U",
+		"V",
+		"W",
+		"X",
+		"Y",
+		"Z",
+	];
+
+	$btn1.addEventListener("click", () => {
+		let palabra = "";
+		for (let i = 0; i < 5; i++){
+			const randomIndex = Math.floor(Math.random()*randomLetters.length);
+			palabra += randomLetters[randomIndex];
+		}
+		$code.innerHTML = palabra;
+	});
+	$btn2.addEventListener('click', () =>{
+
+	})
+</script>
